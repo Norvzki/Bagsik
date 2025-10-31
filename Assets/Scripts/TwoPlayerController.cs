@@ -46,6 +46,20 @@ public class TwoPlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        
+        if (animator == null)
+        {
+            Debug.LogError($"Player {playerNumber}: No Animator component found!");
+        }
+        else
+        {
+            Debug.Log($"Player {playerNumber}: Animator found. Controller: {(animator.runtimeAnimatorController != null ? animator.runtimeAnimatorController.name : "NULL")}, Avatar: {(animator.avatar != null ? animator.avatar.name : "NULL")}");
+        }
+        
+        if (controller == null)
+        {
+            Debug.LogError($"Player {playerNumber}: No CharacterController component found!");
+        }
     }
     
     void Update()
@@ -247,5 +261,11 @@ public class TwoPlayerController : MonoBehaviour
         // Apply gravity
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+    
+    // Public method to check if player is ducking
+    public bool IsDucking()
+    {
+        return isDucking;
     }
 }

@@ -59,8 +59,32 @@ public class AudioManager : MonoBehaviour
         Debug.Log($"Playing SFX: {clip.name}");
     }
 
+    public void PlayLoopingSFX(AudioClip clip)
+    {
+        if (SFXSource == null)
+        {
+            Debug.LogError("SFXSource is not assigned in AudioManager!");
+            return;
+        }
+        if (clip == null)
+        {
+            Debug.LogError("Attempted to play null AudioClip!");
+            return;
+        }
+        
+        SFXSource.clip = clip;
+        SFXSource.loop = true;
+        SFXSource.Play();
+        Debug.Log($"Playing looping SFX: {clip.name}");
+    }
+
     public void StopSFX()
     {
-        SFXSource.Stop();
+        if (SFXSource != null)
+        {
+            SFXSource.Stop();
+            SFXSource.loop = false;
+            Debug.Log("Stopped SFX");
+        }
     }
 }

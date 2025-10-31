@@ -30,4 +30,10 @@ public class Menu_Behavior : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName);
     }
+    
+    // Load character select scene
+    public void LoadCharacterSelect()
+    {
+        SceneManager.LoadScene("CharacterSelect");
+    }
 }

@@ -81,6 +81,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 518131068306345736}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6782630255758180333}
   m_SourcePrefab: {fileID: 100100000, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
 --- !u!1 &3396608691721742711 stripped
 GameObject:
@@ -153,3 +156,16 @@ MonoBehaviour:
   jumpHeight: 2
   gravity: -20
   doubleTapTime: 0.3
+--- !u!114 &6782630255758180333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396608691721742711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c8702e0e0caa1a49b52fe0188ee773a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  moveSpeed: 5
