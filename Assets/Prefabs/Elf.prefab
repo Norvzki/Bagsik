@@ -10,19 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.5899656
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7262885
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.66475
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.26
+      value: 4.57
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.51
+      value: -4.66
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -80,7 +80,7 @@ PrefabInstance:
       addedObject: {fileID: 865114530949278928}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1355802294639291388}
+      addedObject: {fileID: 518131068306345736}
   m_SourcePrefab: {fileID: 100100000, guid: d35355bab4e973940ae820c0354d6e2c, type: 3}
 --- !u!1 &3396608691721742711 stripped
 GameObject:
@@ -122,7 +122,7 @@ Animator:
   m_GameObject: {fileID: 3396608691721742711}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f6c893407c6f4724b9c25ff4976c2766, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -134,7 +134,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1355802294639291388
+--- !u!114 &518131068306345736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,11 +143,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3396608691721742711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a17ac5db311d684cbabe3f4158be643, type: 3}
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f6789012345678abcdef01, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 6
-  jumpHeight: 2
-  gravity: -9.81
+  m_EditorClassIdentifier: 
+  playerNumber: 1
+  walkSpeed: 5
+  runSpeed: 10
   rotationSpeed: 10
-  mainCamera: {fileID: 0}
+  jumpHeight: 2
+  gravity: -20
+  doubleTapTime: 0.3

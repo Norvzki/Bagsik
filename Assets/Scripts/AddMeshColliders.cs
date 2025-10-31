@@ -25,4 +25,19 @@ public class AddMeshColliders : MonoBehaviour
         
         Debug.Log("Finished adding mesh colliders!");
     }
+    
+    [ContextMenu("Make All Rigidbodies Kinematic")]
+    void MakeRigidbodiesKinematic()
+    {
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+        
+        foreach (Rigidbody rb in rigidbodies)
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            Debug.Log("Made kinematic: " + rb.gameObject.name);
+        }
+        
+        Debug.Log($"Made {rigidbodies.Length} rigidbodies kinematic!");
+    }
 }
