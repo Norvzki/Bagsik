@@ -33,10 +33,6 @@ public class AudioManager : MonoBehaviour
     }
 
 
-
-
-
-
     public void Start()
     {
         musicSource.clip = background;
