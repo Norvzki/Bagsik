@@ -29,6 +29,29 @@ public class PlayerMovement : MonoBehaviour
             mainCamera = Camera.main.transform;
     }
 
+    // for sfx
+    AudioManager audioManager;
+
+    void Awake()
+    {
+        var audioObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioObject == null)
+        {
+            Debug.LogError("No GameObject with 'Audio' tag found!");
+            return;
+        }
+        
+        audioManager = audioObject.GetComponent<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager component not found on Audio GameObject!");
+        }
+        else
+        {
+            Debug.Log("AudioManager found and assigned successfully");
+        }
+    }
+
     void Update()
     {
         // --- 1. Ground Check & Gravity Reset ---
@@ -101,6 +124,19 @@ public class PlayerMovement : MonoBehaviour
         // --- 5. Jump and Gravity Application ---
         if (Input.GetButtonDown("Jump") && controller.isGrounded)
         {
+            if (audioManager == null)
+            {
+                Debug.LogError("AudioManager is null when trying to play jump sound!");
+            }
+            else if (audioManager.Jump == null)
+            {
+                Debug.LogError("Jump AudioClip is not assigned in AudioManager!");
+            }
+            else
+            {
+                Debug.Log("Attempting to play jump sound...");
+                audioManager.PlaySFX(audioManager.Jump);
+            }
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             // Optional: Add animator.SetTrigger("Jump") here
         }

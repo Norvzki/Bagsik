@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Furniture
+  - Audio
   layers:
   - Default
   - TransparentFX
