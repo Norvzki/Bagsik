@@ -15,6 +15,10 @@ public class TwoPlayerController : MonoBehaviour
     private Animator animator;
     private Vector3 velocity;
     private bool isSprinting = false;
+    private bool isDucking = false;
+    private bool wasDucking = false;
+    private float lastTapTime = 0f;
+
     private float lastTapTime = 0f;
 
     // for the audio
@@ -84,6 +88,31 @@ public class TwoPlayerController : MonoBehaviour
             // Jump with Spacebar
             if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
             {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+            
+            // Duck with E key
+            isDucking = Input.GetKey(KeyCode.E);
+            
+            // Handle ducking animation freeze
+            if (isDucking && !wasDucking)
+            {
+                // Just started ducking - play animation normally
+                if (animator != null)
+                {
+                    animator.speed = 1f;
+                }
+            }
+            else if (!isDucking && wasDucking)
+            {
+                // Released duck button - resume normal animation
+                if (animator != null)
+                {
+                    animator.speed = 1f;
+                }
+            }
+            
+            wasDucking = isDucking;
                 // for the audio
                 if (audioManager == null)
                 {
@@ -129,6 +158,29 @@ public class TwoPlayerController : MonoBehaviour
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
+            
+            // Duck with Right Ctrl key
+            isDucking = Input.GetKey(KeyCode.RightControl);
+            
+            // Handle ducking animation freeze
+            if (isDucking && !wasDucking)
+            {
+                // Just started ducking - play animation normally
+                if (animator != null)
+                {
+                    animator.speed = 1f;
+                }
+            }
+            else if (!isDucking && wasDucking)
+            {
+                // Released duck button - resume normal animation
+                if (animator != null)
+                {
+                    animator.speed = 1f;
+                }
+            }
+            
+            wasDucking = isDucking;
         }
 
         Vector3 moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
@@ -155,6 +207,21 @@ public class TwoPlayerController : MonoBehaviour
             if (animator != null)
             {
                 animator.SetFloat("Speed", animSpeed, 0.1f, Time.deltaTime);
+                animator.SetBool("IsDucking", isDucking);
+                
+                // Freeze animation on last frame if ducking
+                if (isDucking)
+                {
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    // Check if we're in a ducking animation state and it has completed
+                    if (stateInfo.IsName("Duck") || stateInfo.IsName("Ducking") || stateInfo.IsName("Crouch"))
+                    {
+                        if (stateInfo.normalizedTime >= 0.99f)
+                        {
+                            animator.speed = 0f;
+                        }
+                    }
+                }
             }
         }
         else
@@ -163,6 +230,21 @@ public class TwoPlayerController : MonoBehaviour
             if (animator != null)
             {
                 animator.SetFloat("Speed", 0f, 0.1f, Time.deltaTime);
+                animator.SetBool("IsDucking", isDucking);
+                
+                // Freeze animation on last frame if ducking
+                if (isDucking)
+                {
+                    AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                    // Check if we're in a ducking animation state and it has completed
+                    if (stateInfo.IsName("Duck") || stateInfo.IsName("Ducking") || stateInfo.IsName("Crouch"))
+                    {
+                        if (stateInfo.normalizedTime >= 0.99f)
+                        {
+                            animator.speed = 0f;
+                        }
+                    }
+                }
             }
         }
 
