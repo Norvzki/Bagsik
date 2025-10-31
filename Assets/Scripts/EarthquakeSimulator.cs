@@ -87,7 +87,7 @@ public class EarthquakeSimulator : MonoBehaviour
         
         Debug.Log($"EarthquakeSimulator: Found {affectedObjects.Count} objects to shake. Press '{triggerKey}' to trigger earthquake.");
     }
-    
+
     void Update()
     {
         // Trigger earthquake
@@ -95,39 +95,39 @@ public class EarthquakeSimulator : MonoBehaviour
         {
             StartEarthquake();
         }
-        
+
         // Apply forces during earthquake
         if (isShaking)
         {
             shakeTimer += Time.deltaTime;
-            
+
             foreach (Rigidbody rb in affectedObjects)
             {
                 if (rb == null) continue;
-                
+
                 // Calculate random shake forces using Perlin noise
                 float noiseX = (Mathf.PerlinNoise(Time.time * shakeSpeed, rb.GetInstanceID()) - 0.5f) * 2f;
                 float noiseY = (Mathf.PerlinNoise(rb.GetInstanceID(), Time.time * shakeSpeed) - 0.5f) * 2f;
                 float noiseZ = (Mathf.PerlinNoise(Time.time * shakeSpeed, Time.time * shakeSpeed + rb.GetInstanceID()) - 0.5f) * 2f;
-                
+
                 Vector3 shakeForce = new Vector3(noiseX, noiseY, noiseZ) * pushForce;
-                
+
                 // Add upward force to make objects jump/bounce
                 shakeForce.y += upwardForce * Mathf.Abs(noiseY);
-                
+
                 // Apply force to rigidbody
                 rb.AddForce(shakeForce, ForceMode.Force);
-                
+
                 // Apply random torque to make objects tumble
                 Vector3 randomTorque = new Vector3(
                     (Mathf.PerlinNoise(Time.time * shakeSpeed * 0.7f, rb.GetInstanceID() + 100) - 0.5f) * 2f,
                     (Mathf.PerlinNoise(Time.time * shakeSpeed * 0.7f, rb.GetInstanceID() + 200) - 0.5f) * 2f,
                     (Mathf.PerlinNoise(Time.time * shakeSpeed * 0.7f, rb.GetInstanceID() + 300) - 0.5f) * 2f
                 ) * torqueForce;
-                
+
                 rb.AddTorque(randomTorque, ForceMode.Force);
             }
-            
+
             // End earthquake
             if (shakeTimer >= earthquakeDuration)
             {
@@ -136,11 +136,34 @@ public class EarthquakeSimulator : MonoBehaviour
         }
     }
     
+    AudioManager audioManager;
+
+    void Awake()
+    {
+        var audioObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioObject == null)
+        {
+            Debug.LogError("No GameObject with 'Audio' tag found!");
+            return;
+        }
+        
+        audioManager = audioObject.GetComponent<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager component not found on Audio GameObject!");
+        }
+        else
+        {
+            Debug.Log("AudioManager found and assigned successfully");
+        }
+    }
+
     void StartEarthquake()
     {
         isShaking = true;
         shakeTimer = 0f;
-        
+
+        audioManager.PlaySFX(audioManager.earthquake);
         // Enable physics on all affected objects
         foreach (Rigidbody rb in affectedObjects)
         {
@@ -157,6 +180,8 @@ public class EarthquakeSimulator : MonoBehaviour
     void StopEarthquake()
     {
         isShaking = false;
+
+        audioManager.StopSFX();
         
         // Objects stay where they fell - no reset!
         // Physics remains enabled so objects can settle naturally

@@ -8,7 +8,6 @@ public class AudioManager : MonoBehaviour
 
     [Header("----------- Audio Clip -----------")]
     public AudioClip bgm;
-    public AudioClip background;
     public AudioClip earthquake;
     public AudioClip Jump;
     public AudioClip victory;
@@ -35,7 +34,7 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         // Use bgm if assigned, otherwise use background
-        AudioClip clipToPlay = bgm != null ? bgm : background;
+        AudioClip clipToPlay = bgm;
         if (clipToPlay != null)
         {
             musicSource.clip = clipToPlay;

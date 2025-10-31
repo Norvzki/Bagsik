@@ -41,13 +41,13 @@ public class TwoPlayerController : MonoBehaviour
             Debug.Log("AudioManager found and assigned successfully");
         }
     }
-    
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }
-
+    
     void Update()
     {
         // Ground check and gravity reset
