@@ -19,8 +19,6 @@ public class TwoPlayerController : MonoBehaviour
     private bool wasDucking = false;
     private float lastTapTime = 0f;
 
-    private float lastTapTime = 0f;
-
     // for the audio
     AudioManager audioManager;
 
@@ -88,6 +86,20 @@ public class TwoPlayerController : MonoBehaviour
             // Jump with Spacebar
             if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
             {
+                // for the audio
+                if (audioManager == null)
+                {
+                    Debug.LogError("AudioManager is null when trying to play jump sound!");
+                }
+                else if (audioManager.Jump == null)
+                {
+                    Debug.LogError("Jump AudioClip is not assigned in AudioManager!");
+                }
+                else
+                {
+                    Debug.Log("Attempting to play jump sound...");
+                    audioManager.PlaySFX(audioManager.Jump);
+                }
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
             
@@ -113,22 +125,6 @@ public class TwoPlayerController : MonoBehaviour
             }
             
             wasDucking = isDucking;
-                // for the audio
-                if (audioManager == null)
-                {
-                    Debug.LogError("AudioManager is null when trying to play jump sound!");
-                }
-                else if (audioManager.Jump == null)
-                {
-                    Debug.LogError("Jump AudioClip is not assigned in AudioManager!");
-                }
-                else
-                {
-                    Debug.Log("Attempting to play jump sound...");
-                    audioManager.PlaySFX(audioManager.Jump);
-                }
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            }
         }
         else if (playerNumber == 2)
         {
