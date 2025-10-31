@@ -67,7 +67,7 @@ public class EarthquakeSimulator : MonoBehaviour
         
         Debug.Log($"EarthquakeSimulator: Found {originalPositions.Count} objects to shake. Press '{triggerKey}' to trigger earthquake.");
     }
-    
+
     void Update()
     {
         // Trigger earthquake
@@ -75,35 +75,35 @@ public class EarthquakeSimulator : MonoBehaviour
         {
             StartEarthquake();
         }
-        
+
         // Shake objects during earthquake
         if (isShaking)
         {
             shakeTimer += Time.deltaTime;
-            
+
             foreach (var kvp in originalPositions)
             {
                 Transform obj = kvp.Key;
                 if (obj == null) continue;
-                
+
                 Vector3 originalPos = kvp.Value;
                 Quaternion originalRot = originalRotations[obj];
-                
+
                 // Calculate shake offset using Perlin noise for smooth random movement
                 float noiseX = (Mathf.PerlinNoise(Time.time * shakeSpeed, 0f) - 0.5f) * 2f;
                 float noiseY = (Mathf.PerlinNoise(0f, Time.time * shakeSpeed) - 0.5f) * 2f;
                 float noiseZ = (Mathf.PerlinNoise(Time.time * shakeSpeed, Time.time * shakeSpeed) - 0.5f) * 2f;
-                
+
                 Vector3 shakeOffset = new Vector3(noiseX, noiseY, noiseZ) * shakeIntensity;
-                
+
                 // Apply shake to position
                 obj.localPosition = originalPos + shakeOffset;
-                
+
                 // Apply slight rotation shake
                 float rotationShake = (Mathf.PerlinNoise(Time.time * shakeSpeed * 0.5f, 100f) - 0.5f) * 2f * shakeIntensity * 10f;
                 obj.localRotation = originalRot * Quaternion.Euler(rotationShake, rotationShake * 0.5f, rotationShake * 0.3f);
             }
-            
+
             // End earthquake
             if (shakeTimer >= earthquakeDuration)
             {
@@ -111,9 +111,18 @@ public class EarthquakeSimulator : MonoBehaviour
             }
         }
     }
-    
+
+    // for audio
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
+
     void StartEarthquake()
     {
+        audioManager.PlaySFX(audioManager.earthquake);
         isShaking = true;
         shakeTimer = 0f;
         Debug.Log("Earthquake started!");
@@ -121,6 +130,7 @@ public class EarthquakeSimulator : MonoBehaviour
     
     void StopEarthquake()
     {
+        audioManager.StopSFX();
         isShaking = false;
         
         // Return all objects to original positions
