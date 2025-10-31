@@ -17,6 +17,29 @@ public class TwoPlayerController : MonoBehaviour
     private bool isSprinting = false;
     private float lastTapTime = 0f;
 
+    // for the audio
+    AudioManager audioManager;
+
+    void Awake()
+    {
+        var audioObject = GameObject.FindGameObjectWithTag("Audio");
+        if (audioObject == null)
+        {
+            Debug.LogError("No GameObject with 'Audio' tag found!");
+            return;
+        }
+
+        audioManager = audioObject.GetComponent<AudioManager>();
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager component not found on Audio GameObject!");
+        }
+        else
+        {
+            Debug.Log("AudioManager found and assigned successfully");
+        }
+    }
+    
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -61,6 +84,20 @@ public class TwoPlayerController : MonoBehaviour
             // Jump with Spacebar
             if (Input.GetKeyDown(KeyCode.Space) && controller.isGrounded)
             {
+                // for the audio
+                if (audioManager == null)
+                {
+                    Debug.LogError("AudioManager is null when trying to play jump sound!");
+                }
+                else if (audioManager.Jump == null)
+                {
+                    Debug.LogError("Jump AudioClip is not assigned in AudioManager!");
+                }
+                else
+                {
+                    Debug.Log("Attempting to play jump sound...");
+                    audioManager.PlaySFX(audioManager.Jump);
+                }
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
         }

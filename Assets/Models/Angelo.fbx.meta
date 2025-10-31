@@ -3,7 +3,17 @@ guid: 22d4b390c85aaee4aa7d25d86e8ebe60
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: BodyTextureAngelo
+    second: {fileID: 2800000, guid: c4ce2a98fa3af0343ad0454a0f941add, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: FaceTextureAngelo
+    second: {fileID: 2800000, guid: 7aee27512940d744d913f02168ca3426, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
