@@ -9,16 +9,16 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 945d28ec86a9d494abd8910856f4a6af
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Prefabs/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Prefabs/Scenes/Menu.unity
     guid: 2f3c6ec911751044693f8d3e3ea349c1
   - enabled: 1
-    path: Assets/Scenes/Settings.unity
+    path: Assets/Prefabs/Scenes/Settings.unity
     guid: c642183cc7aa8b249804d635a8ff8e1e
   - enabled: 1
-    path: Assets/Scenes/About.unity
+    path: Assets/Prefabs/Scenes/About.unity
     guid: b14744be941e1c04581ae0fddcbba00e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
